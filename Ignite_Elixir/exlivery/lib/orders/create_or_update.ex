@@ -1,5 +1,7 @@
 defmodule Exlivery.Orders.CreateOrUpate do
   alias Exlivery.Orders.Agent, as: OrderAgent
+  alias Exlivery.Orders.Item
+  alias Exlivery.Orders.Order
   alias Exlivery.Users.Agent, as: UserAgent
 
   def call(%{user_cpf: user_cpf, items: items}) do
@@ -10,15 +12,29 @@ defmodule Exlivery.Orders.CreateOrUpate do
          end
   end
 
-  def get(cpf), do: Agent.get(__MODULE__, &get_user(&1, cpf))
+  defp build_items(items) do
+    items
+    |> Enum.map(&build_item/1)
+    |> handle_build()
+  end
 
-  def get_user(state, cpf) do
-    case Map.get(state, cpf) do
-      nil -> {:error, "User not found"}
-      user -> {:ok, user}
+  defp build_item(%{
+    description: description,
+    category: category,
+    unity_price: unity_price,
+    quantity: quantity
+  }) do
+    case Item.build(description, category, unity_price, quantity) do
+      {:ok, item} -> item
+      {:error, _reason} = error -> error
     end
   end
 
-  defp save_user({:ok, %User{} = user}), do: UserAgent.save(user)
-  defp save_user({:error, _reason} = error), do: error
+  defp handle_build(items) do
+    if Enum.all?(items, &is_struct/1) do
+      {:ok, items}
+    else
+      {:error, "Invalid items!"}
+    end
+  end
 end
