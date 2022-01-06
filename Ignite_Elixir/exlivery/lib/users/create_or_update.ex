@@ -7,7 +7,7 @@ defmodule Exlivery.Users.CreateOrUpate do
     |> save_user()
   end
 
-  def get(cpf), do: Agent.get(__MODULE__, &get_user(&1, cpf))
+  def get(cpf), do: Agent.get(__MODULE__, fn state -> get_user(state, cpf) end)
 
   def get_user(state, cpf) do
     case Map.get(state, cpf) do

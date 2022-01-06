@@ -8,7 +8,7 @@ defmodule Exlivery.Orders.CreateOrUpate do
     with {:ok, user} <- UserAgent.get(user_cpf),
          {:ok, items} <- build_items(items),
          {:ok, order} <- Order.build(user, items) do
-          OrderAgente
+          OrderAgent.save(order)
          end
   end
 
