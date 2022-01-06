@@ -6,9 +6,9 @@ defmodule Exlivery.Users.Agent do
     Agent.start_link(fn -> %{} end, name: __MODULE__)
   end
 
-  def save(%User{} = user), do: Agent.update(__MODULE__, &update_state(&1, user))
+  def save(%User{} = user), do: Agent.update(__MODULE__, fn state -> update_state(state, user) end)
 
-  def get(cpf), do: Agent.get(__MODULE__, &get_user(&1, cpf))
+  def get(cpf), do: Agent.get(__MODULE__, fn state -> get_user(state, cpf) end)
 
   defp get_user(state, cpf) do
     case Map.get(state, cpf) do
