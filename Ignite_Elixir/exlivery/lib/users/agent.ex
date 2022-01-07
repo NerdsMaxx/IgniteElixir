@@ -10,6 +10,8 @@ defmodule Exlivery.Users.Agent do
 
   def get(cpf), do: Agent.get(__MODULE__, fn state -> get_user(state, cpf) end)
 
+  def list_all, do: Agent.get(__MODULE__, & &1)
+
   defp get_user(state, cpf) do
     case Map.get(state, cpf) do
       nil -> {:error, "User not found"}

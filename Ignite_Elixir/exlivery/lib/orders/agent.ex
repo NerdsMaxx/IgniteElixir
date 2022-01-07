@@ -8,11 +8,13 @@ defmodule Exlivery.Orders.Agent do
 
   def save(%Order{} = order) do
     uuid = UUID.uuid4()
-    Agent.update(__MODULE__, &update_state(&1, uuid, order))
+    Agent.update(__MODULE__, fn state -> update_state(state, uuid, order) end)
     {:ok, uuid}
   end
 
-  def get(uuid), do: Agent.get(__MODULE__, &get_order(&1, uuid))
+  def get(uuid), do: Agent.get(__MODULE__, fn state -> get_order(state, uuid) end)
+
+  def list_all, do: Agent.get(__MODULE__, & &1)
 
   defp get_order(state, uuid) do
     case Map.get(state, uuid) do

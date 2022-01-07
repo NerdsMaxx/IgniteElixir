@@ -7,16 +7,10 @@ defmodule Exlivery.Users.CreateOrUpate do
     |> save_user()
   end
 
-  # state é uma struct User que está armazenado
-  def get(cpf), do: Agent.get(__MODULE__, fn state -> get_user(state, cpf) end)
+  defp save_user({:ok, %User{} = user}) do
+    UserAgent.save(user)
 
-  defp get_user(state, cpf) do
-    case Map.get(state, cpf) do
-      nil -> {:error, "User not found"}
-      user -> {:ok, user}
-    end
+    {:ok, "User created or updated sucessfully!"}
   end
-
-  defp save_user({:ok, %User{} = user}), do: UserAgent.save(user)
   defp save_user({:error, _reason} = error), do: error
 end
