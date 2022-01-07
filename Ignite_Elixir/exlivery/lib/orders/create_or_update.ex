@@ -1,4 +1,4 @@
-defmodule Exlivery.Orders.CreateOrUpate do
+defmodule Exlivery.Orders.CreateOrUpdate do
   alias Exlivery.Orders.Agent, as: OrderAgent
   alias Exlivery.Orders.Item
   alias Exlivery.Orders.Order

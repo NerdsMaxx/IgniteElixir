@@ -1,7 +1,6 @@
 defmodule Exlivery.Users.AgentTest do
   use ExUnit.Case
   alias Exlivery.Users.Agent, as: UserAgent
-  alias Exlivery.Users.User
   import Exlivery.Factory
 
   describe "save/1" do
@@ -48,7 +47,7 @@ defmodule Exlivery.Users.AgentTest do
 
       response = UserAgent.get("0000000000")
 
-      excepted_response = {:error, "User not found"}
+      excepted_response = {:error, "User not found!"}
 
       assert response == excepted_response
     end

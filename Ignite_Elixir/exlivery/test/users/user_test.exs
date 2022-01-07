@@ -29,7 +29,7 @@ defmodule Exlivery.Users.UserTest do
           "henrique@hotmail.com"
         )
 
-      expected_response = {:error, "Invalid parameters"}
+      expected_response = {:error, "Invalid parameters!"}
 
       assert response == expected_response
     end

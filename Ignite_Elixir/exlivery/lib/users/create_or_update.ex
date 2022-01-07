@@ -1,4 +1,4 @@
-defmodule Exlivery.Users.CreateOrUpate do
+defmodule Exlivery.Users.CreateOrUpdate do
   alias Exlivery.Users.Agent, as: UserAgent
   alias Exlivery.Users.User
 
@@ -12,5 +12,7 @@ defmodule Exlivery.Users.CreateOrUpate do
 
     {:ok, "User created or updated sucessfully!"}
   end
+
   defp save_user({:error, _reason} = error), do: error
+
 end

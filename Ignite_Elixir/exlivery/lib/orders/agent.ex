@@ -14,14 +14,14 @@ defmodule Exlivery.Orders.Agent do
 
   def get(uuid), do: Agent.get(__MODULE__, fn state -> get_order(state, uuid) end)
 
-  def list_all, do: Agent.get(__MODULE__, & &1)
+  def get_all, do: Agent.get(__MODULE__, & &1)
 
   defp get_order(state, uuid) do
     case Map.get(state, uuid) do
-      nil -> {:error, "Order not found"}
+      nil -> {:error, "Order not found!"}
       order -> {:ok, order}
     end
   end
 
-  def update_state(state, uuid, %Order{} = order), do: Map.put(state, uuid, order)
+  defp update_state(state, uuid, %Order{} = order), do: Map.put(state, uuid, order)
 end

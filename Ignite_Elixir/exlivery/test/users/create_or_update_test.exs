@@ -1,9 +1,10 @@
-defmodule Exlivery.Users.CreateOrUpateTest do
+defmodule Exlivery.Users.CreateOrUpdateTest do
   use ExUnit.Case
-  alias Exlivery.Users.CreateOrUpate
-  alias Exlivery.Users.User
-  alias Exlivery.Users.Agent, as: UserAgent
+
   import Exlivery.Factory
+
+  alias Exlivery.Users.CreateOrUpdate
+  alias Exlivery.Users.Agent, as: UserAgent
 
   describe "call/1" do
     setup do
@@ -13,9 +14,7 @@ defmodule Exlivery.Users.CreateOrUpateTest do
     end
 
     test "when all params are valid, saves the user" do
-      map_user = Map.from_struct(build(:user))
-
-      response = CreateOrUpate.call(map_user)
+      response = CreateOrUpdate.call(build(:user))
 
       excepted_response = {:ok, "User created or updated sucessfully!"}
 
@@ -23,11 +22,9 @@ defmodule Exlivery.Users.CreateOrUpateTest do
     end
 
     test "when there are invalid params, returns an error" do
-      map_user = Map.from_struct(build(:user, age: 14))
+      response = CreateOrUpdate.call(build(:user, age: 14))
 
-      response = CreateOrUpate.call(map_user)
-
-      excepted_response = {:error, "Invalid parameters"}
+      excepted_response = {:error, "Invalid parameters!"}
 
       assert response == excepted_response
     end
