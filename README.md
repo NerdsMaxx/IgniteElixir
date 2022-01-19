@@ -4,4 +4,4 @@
 
 ![image](https://user-images.githubusercontent.com/69761459/144122176-4101d6fb-ccaa-429d-9490-404d51959ca4.png)
 
-São programinhas que desenvolvi seguindo professor Rafael durante as aulas.
+São alguns projetos que desenvolvi seguindo professor Rafael durante as aulas.
